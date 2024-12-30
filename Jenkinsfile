@@ -1,4 +1,5 @@
 pipeline {
+
     agent {
         docker {
             image 'openjdk:21-jdk' // Use a Maven Docker image with JDK
@@ -6,6 +7,7 @@ pipeline {
     }
     environment {
         DOCKER_IMAGE = 'employee-crud'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
     }
     stages {
         stage('Clone Repository') {
@@ -18,14 +20,18 @@ pipeline {
                 sh 'gradlew clean build' // Build the JAR file
             }
         }
-        stage('Build Docker Image') {
+       stage('Build Docker Images') {
+           steps {
+               script {
+                   sh 'docker-compose -f $DOCKER_COMPOSE_FILE build'
+               }
+           }
+       }
+        stage('Start Services') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
-            }
-        }
-        stage('Run Docker Container') {
-            steps {
-                sh 'docker run -d --name spring-boot-app -p 8080:8080 $DOCKER_IMAGE'
+                script {
+                    sh 'docker-compose -f $DOCKER_COMPOSE_FILE up -d'
+                }
             }
         }
     }
