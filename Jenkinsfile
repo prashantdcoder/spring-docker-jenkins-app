@@ -30,7 +30,17 @@ pipeline {
         stage('Start Services') {
             steps {
                 script {
+                    echo "Running docker services..."
                     sh 'docker-compose -f $DOCKER_COMPOSE_FILE up -d'
+                }
+            }
+        }
+
+        stage('Test case') {
+            steps {
+                script {
+                    echo "Running test cases..."
+                    sh 'gradlew test'
                 }
             }
         }
