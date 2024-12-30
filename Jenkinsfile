@@ -1,9 +1,12 @@
 pipeline {
 
-    agent {
+    /* agent {
         docker {
             image 'openjdk:21-jdk' // Use a Maven Docker image with JDK
         }
+    } */
+    agent {
+        any
     }
     environment {
         DOCKER_IMAGE = 'employee-crud'
@@ -35,7 +38,6 @@ pipeline {
                 }
             }
         }
-
         stage('Test case') {
             steps {
                 script {
