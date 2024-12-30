@@ -7,4 +7,4 @@ services:
       dockerfile: Dockerfile
     container_name: employee-crud
     ports:
-      - "8080:8081"
+      - "7070:8081"
