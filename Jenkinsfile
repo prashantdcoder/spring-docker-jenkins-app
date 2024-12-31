@@ -17,13 +17,21 @@ pipeline {
                 echo "Building app..."
                 sh 'chmod +x ./gradlew'
                 sh './gradlew --version'
-                sh './gradlew clean build --refresh-dependencies' // Build the JAR file
+                sh './gradlew clean build --refresh-dependencies --no-daemon' // Build the JAR file
             }
         }
        stage('Build Docker Images') {
            steps {
                script {
                    sh 'docker-compose -f $DOCKER_COMPOSE_FILE build'
+               }
+           }
+       }
+       stage('Test case') {
+           steps {
+               script {
+                   echo "Running test cases..."
+                   sh './gradlew test'
                }
            }
        }
@@ -35,13 +43,6 @@ pipeline {
                 }
             }
         }
-        stage('Test case') {
-            steps {
-                script {
-                    echo "Running test cases..."
-                    sh './gradlew test'
-                }
-            }
-        }
+
     }
 }
