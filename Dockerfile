@@ -5,7 +5,7 @@ FROM openjdk:21-jdk
 WORKDIR /app
 
 # Copy the JAR file (from Maven/Gradle build)
-COPY build/libs/spring-docker-jenkins-app-0.0.1-SNAPSHOT.jar spring-docker-jenkins-app.jar
+COPY build/libs/spring-docker-jenkins-app-0.0.1-SNAPSHOT.jar /app/spring-docker-jenkins-app.jar
 
 # Expose the application port
 EXPOSE 8080
