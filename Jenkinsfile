@@ -1,7 +1,10 @@
 pipeline {
 
-    agent any
-    
+    agent {
+        docker {
+            image 'openjdk:21-jdk' // Use a Maven Docker image with JDK
+        }
+    }
     environment {
         DOCKER_IMAGE = 'employee-crud'
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
@@ -14,7 +17,9 @@ pipeline {
         }
         stage('Build App') {
             steps {
-                sh 'gradlew clean build' // Build the JAR file
+                echo "Building app..."
+                sh 'chmod +x ./gradlew'
+                sh './gradlew clean build' // Build the JAR file
             }
         }
        stage('Build Docker Images') {
@@ -36,7 +41,7 @@ pipeline {
             steps {
                 script {
                     echo "Running test cases..."
-                    sh 'gradlew test'
+                    sh './gradlew test'
                 }
             }
         }
