@@ -15,8 +15,9 @@ pipeline {
         stage('Build App') {
             steps {
                 echo "Building app..."
+                sh './gradlew --version'
                 sh 'chmod +x ./gradlew'
-                sh './gradlew clean build --refresh-dependencies' // Build the JAR file
+                sh './gradle clean build --refresh-dependencies --no-daemon' // Build the JAR file
             }
         }
        stage('Build Docker Images') {
