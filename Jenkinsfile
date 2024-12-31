@@ -1,10 +1,7 @@
 pipeline {
 
-    agent {
-        docker {
-            image 'openjdk:21-jdk' // Use a Maven Docker image with JDK
-        }
-    }
+    agent any
+    
     environment {
         DOCKER_IMAGE = 'employee-crud'
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
