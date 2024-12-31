@@ -5,6 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: employee-crud
+    container_name: spring-docker-jenkins-app
     ports:
       - "7070:8081"
