@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo "Building app..."
                 sh 'chmod +x ./gradlew'
-                sh './gradlew clean build' // Build the JAR file
+                sh './gradlew clean build --refresh-dependencies' // Build the JAR file
             }
         }
        stage('Build Docker Images') {
