@@ -35,7 +35,7 @@ pipeline {
                }
            }
        }
-        stage('Start Services') {
+        stage('Start Service') {
             steps {
                 script {
                     echo "Running docker services..."
@@ -43,12 +43,10 @@ pipeline {
                 }
             }
         }
-
-//         post {
-//             always {
-//                 cleanWs()
-//             }
-//         }
-
+        post {
+            always {
+                cleanWs()
+            }
+        }
     }
 }
